@@ -1,6 +1,120 @@
----
-description: 
-globs: 
-alwaysApply: false
----
- 
+# General Code Practices
+
+Follow these general code practices to ensure high-quality, maintainable code:
+
+## Code Organization
+
+- Keep files small and focused on a single responsibility
+- Limit components to 250-300 lines; split larger components
+- Group related functions and components logically
+- Separate business logic from UI components
+
+## Function Design
+
+- Keep functions small and focused (< 50 lines when possible)
+- Functions should do one thing and do it well
+- Use pure functions where possible (same input always gives same output)
+- Limit function parameters (3 or fewer is ideal)
+```tsx
+// Good: Simple, single-purpose function
+const getGradientCSS = (stops, type = 'linear', angle = 90) => {
+  // Implementation
+}
+
+// Avoid: Function doing too many things
+const handleGradient = (stops, type, angle, save, generate, reset) => {
+  // Too many parameters and responsibilities
+}
+```
+
+## Avoid Deep Nesting
+
+- Limit indentation levels (ideally 2-3 levels)
+- Return early to avoid nesting
+```tsx
+// Good: Early return
+function validateColor(color) {
+  if (!color) {
+    return false
+  }
+  
+  // Validation logic
+  return true
+}
+
+// Avoid: Deep nesting
+function validateColor(color) {
+  if (color) {
+    if (isHexColor(color)) {
+      if (color.length === 7) {
+        // Deeply nested logic
+      }
+    }
+  }
+}
+```
+
+## Avoid Magic Values
+
+- Extract magic numbers and strings to named constants
+```tsx
+// Good
+const MAX_COLOR_STOPS = 10
+if (stops.length >= MAX_COLOR_STOPS) {
+  // ...
+}
+
+// Avoid
+if (stops.length >= 10) {
+  // ...
+}
+```
+
+## Error Handling
+
+- Handle errors explicitly and gracefully
+- Provide meaningful error messages
+- Use try/catch blocks for async operations
+```tsx
+try {
+  await saveGradient(gradient)
+} catch (error) {
+  console.error('Failed to save gradient:', error.message)
+  notifyUser('Could not save your gradient. Please try again.')
+}
+```
+
+## Comments
+
+- Write self-documenting code that needs minimal comments
+- Comment only when explaining complex logic or edge cases
+- Keep comments up-to-date with code changes
+- Use JSDoc for function documentation
+
+## DRY (Don't Repeat Yourself)
+
+- Extract repeated logic into reusable functions
+- Create shared hooks for common stateful operations
+- Use custom components for repeated UI patterns
+
+## Performance Considerations
+
+- Memoize expensive calculations with useMemo
+- Use useCallback for handlers passed as props
+- Avoid unnecessary re-renders with React.memo
+- Implement virtual lists for long, scrollable content
+
+## Accessibility
+
+- Use semantic HTML elements
+- Add aria attributes where needed
+- Ensure keyboard navigation works
+- Maintain sufficient color contrast
+- Support screen readers with appropriate labels
+
+## Testing
+
+- Write unit tests for utilities and hooks
+- Create component tests for key UI interactions
+- Test edge cases and error states
+- Keep tests simple and focused 

@@ -1,6 +1,133 @@
----
-description: 
-globs: 
-alwaysApply: false
----
- 
+# TypeScript Best Practices
+
+Follow these TypeScript best practices to ensure consistent, maintainable, and type-safe code:
+
+## Types vs Interfaces
+
+- Prefer `type` over `interface` for consistency and flexibility
+```tsx
+// Good
+type ColorStop = {
+  position: number
+  color: string
+}
+
+// Avoid
+interface ColorStop {
+  position: number
+  color: string
+}
+```
+
+- Use `type` for unions, intersections, and mapped types
+```tsx
+// Union types
+type ColorFormat = 'rgb' | 'hex' | 'hsl'
+
+// Intersection types
+type ColorWithMetadata = ColorStop & {
+  id: string
+  name?: string
+}
+
+// Mapped types
+type ColorStopRecord = Record<string, ColorStop>
+```
+
+- Benefits of using `type`:
+  - More flexible than `interface`
+  - Cannot be reopened (avoiding unintended extensions)
+  - More consistent syntax for complex types
+  - Better error messages in many cases
+
+## Avoid Enums
+
+- Avoid TypeScript enums in favor of union types or const objects
+```tsx
+// Avoid enum
+enum GradientType {
+  Linear = 'linear',
+  Radial = 'radial',
+  Conic = 'conic'
+}
+
+// Prefer union type
+type GradientType = 'linear' | 'radial' | 'conic'
+
+// Or const object if you need key-value mapping
+const GRADIENT_TYPES = {
+  LINEAR: 'linear',
+  RADIAL: 'radial',
+  CONIC: 'conic'
+} as const
+
+type GradientType = typeof GRADIENT_TYPES[keyof typeof GRADIENT_TYPES]
+```
+
+- Reasons to avoid enums:
+  - They don't always inline in compiled JavaScript
+  - They can lead to larger bundle sizes
+  - They can have unexpected runtime behavior
+  - Union types provide better type safety
+  - Const objects give more control and predictability
+
+## Type Assertions
+
+- Use `as` syntax for type assertions instead of angle brackets
+```tsx
+// Good
+const color = value as RGB
+
+// Avoid
+const color = <RGB>value
+```
+
+## Type Inference
+
+- Leverage TypeScript's type inference when possible
+```tsx
+// Let types be inferred when obvious
+const colors = ['#ff0000', '#00ff00', '#0000ff']
+
+// Explicitly type when needed for clarity
+const gradient: Gradient = {
+  type: 'linear',
+  stops: [],
+  angle: 90
+}
+```
+
+## Generic Types
+
+- Use descriptive generic type parameters
+```tsx
+// Good
+function createGradient<T extends ColorFormat>(colors: T[]): Gradient<T> {
+  // ...
+}
+
+// Avoid
+function createGradient<X>(colors: X[]): Gradient<X> {
+  // ...
+}
+```
+
+## Nullable Types
+
+- Be explicit about nullable types
+```tsx
+// Good
+type ColorSelection = {
+  activeColor: string | null
+  previousColor: string | null
+}
+```
+
+## Use Utility Types
+
+- Take advantage of TypeScript utility types
+```tsx
+type PartialGradient = Partial<Gradient>
+type RequiredColorStop = Required<ColorStop>
+type ReadonlyGradient = Readonly<Gradient>
+``` 

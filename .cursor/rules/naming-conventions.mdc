@@ -1,0 +1,82 @@
+# Naming Conventions
+
+Clear and consistent naming patterns make code more readable and maintainable. Follow these guidelines:
+
+## Components and Types
+- Use **PascalCase** for React components, interfaces, and type aliases
+```tsx
+// Component
+const ColorPicker = () => { /* ... */ }
+
+// Types
+type ColorStop = {
+  position: number
+  color: string
+}
+```
+
+## Variables and Functions
+- Use **camelCase** for variables, functions, and methods
+- Use descriptive names that clearly communicate purpose
+```tsx
+// Variables
+const colorStops = []
+const isGradientActive = true
+
+// Functions
+function calculateGradient() { /* ... */ }
+const handleColorChange = () => { /* ... */ }
+```
+
+## Constants
+- Use **UPPER_SNAKE_CASE** for constants and configuration values
+```tsx
+const MAX_COLOR_STOPS = 10
+const DEFAULT_GRADIENT = "linear-gradient(to right, #ff0000, #00ff00)"
+```
+
+## Boolean Variables
+- Prefix boolean variables with "is", "has", or "should"
+```tsx
+const isLoading = true
+const hasError = false
+const shouldRefresh = true
+```
+
+## Event Handlers
+- Prefix event handlers with "handle" or "on"
+```tsx
+const handleClick = () => { /* ... */ }
+const onColorChange = (color) => { /* ... */ }
+```
+
+## CSS Classes and IDs
+- Use **kebab-case** for CSS classes and IDs
+```tsx
+<div className="color-picker-container" id="main-gradient">
+```
+
+## Files and Directories
+- Use **kebab-case** for file and directory names
+- Component files should match the exported component name (PascalCase)
+```
+src/
+  components/
+    color-picker/
+      ColorPicker.tsx
+      color-utils.ts
+  hooks/
+    use-gradient.ts
+```
+
+## Private Properties/Methods
+- Prefix private properties or methods with an underscore
+```tsx
+const _calculateIntermediateColor = () => { /* ... */ }
+```
+
+## Avoid
+- Ambiguous abbreviations that aren't commonly known
+- Overly generic names like `data`, `info`, `manager`
+- Redundant info in names (e.g., `colorPickerComponent`)
+- Single letter variable names except in well-understood contexts (e.g., `i` in loops) 

@@ -1,0 +1,66 @@
+# Import Order Convention
+
+Consistent import ordering makes code more readable and maintainable. Follow this order:
+
+## 1. External dependencies
+Import external packages and libraries first, sorted alphabetically.
+```tsx
+import * as React from "react"
+import { useState, useEffect } from "react"
+import { QueryClient } from "@tanstack/react-query"
+import { Dot } from "lucide-react"
+import classNames from "classnames"
+```
+
+## 2. Internal aliases (with a blank line separator)
+Import project-specific modules using alias paths, sorted alphabetically.
+```tsx
+import { Button } from "@/components/ui/button"
+import { Container } from "@/components/ui/container"
+import { cn } from "@/lib/utils"
+import { useColorTheme } from "@/hooks/use-color-theme"
+```
+
+## 3. Relative imports (with a blank line separator)
+Import modules using relative paths, sorted by distance (parent to child).
+```tsx
+import { GradientContext } from "../context/GradientContext"
+import { ColorStop } from "./types"
+```
+
+## 4. Asset imports (with a blank line separator)
+Import CSS, images, and other assets last.
+```tsx
+import "./styles.css"
+import gradientLogo from "../assets/logo.png"
+```
+
+## Rules
+- Group imports by type with a blank line between each group
+- Sort alphabetically within each group (exception: React should be first in external deps)
+- Use destructuring for named imports when possible
+- Use consistent quotes (prefer double quotes as per the project convention)
+- No default exports with named imports (separate these)
+- Import all hooks separately for better visibility
+- Always use absolute imports with aliases (@/) when available
+
+## Examples
+Bad:
+```tsx
+import { Button } from "../components/ui/button"
+import React from "react"
+import "./styles.css"
+import { cn } from "@/lib/utils"
+```
+
+Good:
+```tsx
+import * as React from "react"
+import { useCallback, useState } from "react"
+
+import { cn } from "@/lib/utils"
+
+import { Button } from "../components/ui/button"
+
+import "./styles.css"
+``` 

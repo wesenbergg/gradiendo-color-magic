@@ -1,0 +1,84 @@
+# Export Practices
+
+Consistent export patterns improve maintainability and project structure. Follow these guidelines:
+
+## Components
+
+- Use default exports for React components
+```tsx
+// Good
+const ColorPicker = () => {
+  // Component logic
+}
+
+export default ColorPicker
+```
+
+- Keep the component name and export statement separate for better readability
+```tsx
+// Avoid
+export default function ColorPicker() {
+  // Component logic
+}
+```
+
+- Export components directly from their own dedicated files
+```tsx
+// src/components/ColorPicker.tsx
+const ColorPicker = () => {
+  // Component logic
+}
+
+export default ColorPicker
+```
+
+## Libraries, Utilities, and Hooks
+
+- Use named exports for utilities, hooks, and helper functions
+```tsx
+// Good
+export function calculateGradient() { /* ... */ }
+export const formatColorValue = (value) => { /* ... */ }
+export const useGradient = () => { /* ... */ }
+```
+
+- Group related functions in a single file with named exports
+```tsx
+// color-utils.ts
+export function rgbToHex() { /* ... */ }
+export function hexToRgb() { /* ... */ }
+export function isValidColor() { /* ... */ }
+```
+
+## Barrel Exports
+
+- Use barrel files (index.ts) to simplify imports from complex folders
+```tsx
+// components/index.ts
+export { default as Button } from './Button'
+export { default as ColorPicker } from './ColorPicker'
+export { default as GradientDisplay } from './GradientDisplay'
+```
+
+## Default Export Benefits
+
+- Helps prevent naming conflicts
+- Simplifies imports and code refactoring
+- Makes component imports more consistent
+- Improves code readability and maintainability
+
+## Export Naming
+
+- Export names should match the file name for components
+- Named exports should have descriptive names that clearly indicate their purpose
+
+## Re-exports
+
+- When re-exporting, prefer explicit naming to avoid confusion
+```tsx
+// Good
+export { default as Button } from './Button'
+
+// Avoid
+export * from './Button'
+``` 

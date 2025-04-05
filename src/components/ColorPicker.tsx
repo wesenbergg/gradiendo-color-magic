@@ -1,21 +1,23 @@
-
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useGradient } from "@/context/GradientContext";
 import { Button } from "@/components/ui/button";
 import { X, Plus } from "lucide-react";
-import { 
+import {
   Tooltip,
   TooltipContent,
-  TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
 export const ColorPicker = () => {
-  const { gradient, addColorStop, updateColorStop, removeColorStop } = useGradient();
+  const { gradient, addColorStop, updateColorStop, removeColorStop } =
+    useGradient();
   const sliderRef = useRef<HTMLDivElement>(null);
   const [draggingIndex, setDraggingIndex] = useState<number | null>(null);
 
-  const handleColorChange = (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleColorChange = (
+    index: number,
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     updateColorStop(index, e.target.value);
   };
 
@@ -33,18 +35,28 @@ export const ColorPicker = () => {
     setDraggingIndex(index);
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (draggingIndex === null || !sliderRef.current) return;
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (draggingIndex === null || !sliderRef.current) return;
 
-    const rect = sliderRef.current.getBoundingClientRect();
-    const position = Math.min(Math.max(0, ((e.clientX - rect.left) / rect.width) * 100), 100);
+      const rect = sliderRef.current.getBoundingClientRect();
+      const position = Math.min(
+        Math.max(0, ((e.clientX - rect.left) / rect.width) * 100),
+        100
+      );
 
-    updateColorStop(draggingIndex, gradient.colorStops[draggingIndex].color, position);
-  };
+      updateColorStop(
+        draggingIndex,
+        gradient.colorStops[draggingIndex].color,
+        position
+      );
+    },
+    [draggingIndex, gradient.colorStops, updateColorStop]
+  );
 
-  const handleMouseUp = () => {
+  const handleMouseUp = useCallback(() => {
     setDraggingIndex(null);
-  };
+  }, []);
 
   useEffect(() => {
     if (draggingIndex !== null) {
@@ -56,7 +68,7 @@ export const ColorPicker = () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [draggingIndex]);
+  }, [draggingIndex, handleMouseMove, handleMouseUp]);
 
   return (
     <div className="w-full mt-6">
@@ -83,39 +95,40 @@ export const ColorPicker = () => {
         }}
       >
         {gradient.colorStops.map((colorStop, index) => (
-          <TooltipProvider key={index}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div
-                  className="color-stop"
-                  style={{
-                    left: `${colorStop.position}%`,
-                    top: "50%",
-                    backgroundColor: colorStop.color,
-                    zIndex: draggingIndex === index ? 20 : 10,
-                  }}
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    handleMouseDown(index);
-                  }}
-                  role="slider"
-                  aria-label={`Color stop ${index + 1}`}
-                  aria-valuemin={0}
-                  aria-valuemax={100}
-                  aria-valuenow={colorStop.position}
-                ></div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Position: {colorStop.position.toFixed(0)}%</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
+          <Tooltip key={index}>
+            <TooltipTrigger asChild>
+              <div
+                className="color-stop"
+                style={{
+                  left: `${colorStop.position}%`,
+                  top: "50%",
+                  backgroundColor: colorStop.color,
+                  zIndex: draggingIndex === index ? 20 : 10,
+                }}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  handleMouseDown(index);
+                }}
+                role="slider"
+                aria-label={`Color stop ${index + 1}`}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={colorStop.position}
+              ></div>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Position: {colorStop.position.toFixed(0)}%</p>
+            </TooltipContent>
+          </Tooltip>
         ))}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
         {gradient.colorStops.map((colorStop, index) => (
-          <div key={index} className="flex items-center gap-2 p-2 rounded-md bg-secondary/50 hover:bg-secondary">
+          <div
+            key={index}
+            className="flex items-center gap-2 p-2 rounded-md bg-secondary/50 hover:bg-secondary"
+          >
             <input
               type="color"
               value={colorStop.color}
@@ -125,7 +138,9 @@ export const ColorPicker = () => {
             />
             <div className="flex-1">
               <span className="text-sm font-mono">{colorStop.color}</span>
-              <div className="text-xs opacity-70">{colorStop.position.toFixed(0)}%</div>
+              <div className="text-xs opacity-70">
+                {colorStop.position.toFixed(0)}%
+              </div>
             </div>
             {gradient.colorStops.length > 2 && (
               <Button
@@ -144,5 +159,3 @@ export const ColorPicker = () => {
     </div>
   );
 };
-
-export default ColorPicker;

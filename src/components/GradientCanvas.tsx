@@ -1,4 +1,3 @@
-
 import { useGradient } from "@/context/GradientContext";
 import { generateGradientStyle } from "@/utils/gradientUtils";
 
@@ -19,5 +18,3 @@ export const GradientCanvas = () => {
     />
   );
 };
-
-export default GradientCanvas;

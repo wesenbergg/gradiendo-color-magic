@@ -1,10 +1,10 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    color-scheme: light;
     --background: 0 0% 100%;
     --foreground: 240 5% 10%;
 
@@ -37,6 +37,7 @@
   }
 
   .dark {
+    color-scheme: dark;
     --background: 240 5% 8%;
     --foreground: 0 0% 96%;
 
@@ -76,19 +77,19 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-  
+
   .glass {
     @apply bg-background/50 backdrop-blur-xl border border-border/30 shadow-lg;
   }
-  
+
   .gradient-canvas {
     @apply rounded-2xl shadow-lg transition-all;
   }
-  
+
   .color-stop {
     @apply absolute -ml-3 -mt-3 w-6 h-6 rounded-full border-2 border-white shadow-lg cursor-pointer transition-all hover:scale-110;
   }
-  
+
   .preset-item {
     @apply rounded-lg h-16 cursor-pointer transition-all hover:scale-105 hover:shadow-md;
   }

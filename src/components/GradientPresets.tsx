@@ -1,7 +1,7 @@
 import { useGradient } from "@/context/useGradient";
 import { presetCategories } from "@/data/presets";
 import { generateGradientStyle } from "@/utils/gradientUtils";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export const GradientPresets = () => {
@@ -15,19 +15,24 @@ export const GradientPresets = () => {
     <div className="w-full">
       <h3 className="text-lg font-medium mb-2">Presets</h3>
       <Tabs defaultValue={presetCategories[0].name.toLowerCase()}>
-        <ScrollArea className="w-full">
-          <TabsList className="mb-2 flex flex-nowrap">
-            {presetCategories.map((category) => (
-              <TabsTrigger
-                key={category.name}
-                value={category.name.toLowerCase()}
-                className="whitespace-nowrap"
-              >
-                {category.name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </ScrollArea>
+        <div className="relative">
+          <ScrollArea className="w-full max-w-full">
+            <div className="flex pb-4">
+              <TabsList className="mb-2 flex flex-nowrap min-w-max">
+                {presetCategories.map((category) => (
+                  <TabsTrigger
+                    key={category.name}
+                    value={category.name.toLowerCase()}
+                    className="whitespace-nowrap"
+                  >
+                    {category.name}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </div>
+            <ScrollBar orientation="horizontal" className="h-2" />
+          </ScrollArea>
+        </div>
 
         {presetCategories.map((category, categoryIndex) => (
           <TabsContent

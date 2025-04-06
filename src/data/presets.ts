@@ -1,7 +1,6 @@
-
 import { GradientState } from "../context/GradientContext";
 
-interface PresetCategory {
+type PresetCategory = {
   name: string;
   presets: GradientState[];
 }

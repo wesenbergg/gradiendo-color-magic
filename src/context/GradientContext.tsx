@@ -1,18 +1,18 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
-export interface ColorStop {
+export type ColorStop = {
   color: string;
   position: number;
-}
+};
 
-export interface GradientState {
+export type GradientState = {
   type: "linear" | "radial";
   angle: number;
   colorStops: ColorStop[];
   darkMode: boolean;
-}
+};
 
-interface GradientContextType {
+type GradientContextType = {
   gradient: GradientState;
   setGradient: React.Dispatch<React.SetStateAction<GradientState>>;
   toggleDarkMode: () => void;
@@ -20,7 +20,7 @@ interface GradientContextType {
   updateColorStop: (index: number, color: string, position?: number) => void;
   removeColorStop: (index: number) => void;
   generateCssCode: () => string;
-}
+};
 
 const GradientContext = createContext<GradientContextType | undefined>(
   undefined

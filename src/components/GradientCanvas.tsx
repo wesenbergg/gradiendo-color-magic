@@ -1,7 +1,7 @@
 import { useGradient } from "@/context/GradientContext";
 import { generateGradientStyle } from "@/utils/gradientUtils";
 
-export const GradientCanvas = () => {
+const GradientCanvas = () => {
   const { gradient } = useGradient();
   const gradientStyle = generateGradientStyle(
     gradient.type,
@@ -18,3 +18,5 @@ export const GradientCanvas = () => {
     />
   );
 };
+
+export default GradientCanvas;

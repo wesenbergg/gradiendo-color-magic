@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export const ColorPicker = () => {
+const ColorPicker = () => {
   const { gradient, addColorStop, updateColorStop, removeColorStop } =
     useGradient();
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -159,3 +159,5 @@ export const ColorPicker = () => {
     </div>
   );
 };
+
+export default ColorPicker;

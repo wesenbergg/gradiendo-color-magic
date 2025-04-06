@@ -1,4 +1,4 @@
-import { useGradient } from "@/context/GradientContext";
+import { useGradient } from "@/context/useGradient";
 import { generateGradientStyle } from "@/utils/gradientUtils";
 
 const GradientCanvas = () => {

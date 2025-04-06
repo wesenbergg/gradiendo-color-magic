@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { useGradient } from "@/context/GradientContext";
+import { useGradient } from "@/context/useGradient";
 import { Button } from "@/components/ui/button";
 import { X, Plus } from "lucide-react";
 import {

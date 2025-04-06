@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGradient } from "@/context/GradientContext";
+import { useGradient } from "@/context/useGradient";
 import {
   generateGradientStyle,
   exportGradientAsImage,

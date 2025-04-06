@@ -1,5 +1,4 @@
-
-import { useGradient } from "@/context/GradientContext";
+import { useGradient } from "@/context/useGradient";
 import { presetCategories } from "@/data/presets";
 import { generateGradientStyle } from "@/utils/gradientUtils";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -29,7 +28,7 @@ export const GradientPresets = () => {
             ))}
           </TabsList>
         </ScrollArea>
-        
+
         {presetCategories.map((category, categoryIndex) => (
           <TabsContent
             key={category.name}

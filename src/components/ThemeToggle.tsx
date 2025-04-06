@@ -1,5 +1,4 @@
-
-import { useGradient } from "@/context/GradientContext";
+import { useGradient } from "@/context/useGradient";
 import { Button } from "@/components/ui/button";
 import { Moon, Sun } from "lucide-react";
 
@@ -11,7 +10,9 @@ export const ThemeToggle = () => {
       variant="outline"
       size="icon"
       onClick={toggleDarkMode}
-      aria-label={gradient.darkMode ? "Switch to light mode" : "Switch to dark mode"}
+      aria-label={
+        gradient.darkMode ? "Switch to light mode" : "Switch to dark mode"
+      }
       className="rounded-full"
     >
       {gradient.darkMode ? (

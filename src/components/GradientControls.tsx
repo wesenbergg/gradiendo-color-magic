@@ -1,5 +1,4 @@
-
-import { useGradient } from "@/context/GradientContext";
+import { useGradient } from "@/context/useGradient";
 import { Slider } from "@/components/ui/slider";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -27,7 +26,9 @@ export const GradientControls = () => {
         <h3 className="text-lg font-medium mb-2">Gradient Type</h3>
         <RadioGroup
           value={gradient.type}
-          onValueChange={(value) => handleTypeChange(value as "linear" | "radial")}
+          onValueChange={(value) =>
+            handleTypeChange(value as "linear" | "radial")
+          }
           className="flex flex-wrap gap-4"
         >
           <div className="flex items-center space-x-2">

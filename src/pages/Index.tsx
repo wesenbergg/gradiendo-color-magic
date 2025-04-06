@@ -1,4 +1,4 @@
-import { GradientProvider } from "@/context/GradientContext";
+import GradientProvider from "@/context/GradientProvider";
 import GradientCanvas from "@/components/GradientCanvas";
 import ColorPicker from "@/components/ColorPicker";
 import GradientControls from "@/components/GradientControls";
